@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+	<title>徐霞客实验小学校车管理系统</title>
+	<link rel="stylesheet" href="css/style.css">
+	<style type="text/css">
+		.wbc_name{
+			color:#CD5C5C;
+		}
+		.qj_name{
+			color:#0000FF;
+		}
+		.qq_name{
+			color:#2E8B57;
+		}
+	</style>
+</head>
+	<script>
+   	function czcx(){
+		var czpc = document.getElementById('czpc').value;
+		var czch = document.getElementById('czch').value;
+		window.location.href = "index.php?c=dm&a=dm&czpc=" + czpc+"&czch="+czch;
+	}
+	function czqq(qqid){
+		window.location.href = "index.php?c=dm&a=dm&qqid=" + qqid;
+	}
+
+
+	function display(optionID,optionName){
+		if(optionID==-1)
+			optionID=0;
+		var osel=document.getElementById(optionName); 
+		var opts=osel.getElementsByTagName("option");//得到数组option
+		// opts[optionID].selected =true;
+		osel.selectedIndex=optionID;
+    }
+	window.onload=function(){
+	display(<?php echo  $_SESSION['batch'] ?>,'czpc');
+			switch(<?php echo  $_SESSION['busnum'] ?>){
+			case -1:
+				display(-1,'czch');
+				break;
+			case 1:
+				display(1,'czch');
+				break;
+			case 2:
+				display(2,'czch');
+				break;
+			case 3:
+				display(3,'czch');
+				break;
+			case 5:
+				display(4,'czch');
+				break;
+			case 7:
+				display(5,'czch');
+				break;
+		}		
+		display(<?php echo  $_SESSION['batch'] ?>,'czpc');	
+} 
+</script>
+<body>
+	
+
+<header id="header">
+	<nav class="link">
+		<h2 class="none">网站导航</h2>
+		<ul>
+			<li><a href="index.php">首页</a></li>
+			<li><a href="index.php?c=cx&a=cx">查询</a></li>
+			<li><a href="index.php?c=qj&a=qj">请假</a></li>
+			<li class="active"><a href="index.php?c=dm&a=dm">点名</a></li>
+		</ul>
+	</nav>
+</header>
+
+<div id="headline">
+	<img src="img/headline.png" alt="">
+	<hgroup>
+		<h2>徐霞客实验小学校车管理系统</h2>
+	</hgroup>
+</div>
+<div id="tour">
+	<section>
+	<hgroup>
+		<h2>徐霞客实验小学校车点名系统</h2>
+		<br>
+	</hgroup>
+	<section>
+</div>
+<div class="list ticket">
+
+批次：<select id="czpc" size="1">
+	<option value="0">请选择</option>
+	<option value="1">第一批</option>
+	<option value="2">第二批</option>
+	<option value="3">第三批</option>
+</select>
+
+车号：<select id="czch" size="1" >
+	<option value="0">请选择</option>
+	<option value="1">1号车</option>
+	<option value="2">2号车</option>
+	<option value="3">3号车</option>
+	<option value="5">5号车</option>
+	<option value="7">7号车</option>
+</select>
+<input type="button" value="查询" id='bt' onclick="czcx()"><span id="num_1">应到人数：<?=$num1?></span>
+	<div class="new">		
+		<table>
+			<thead>
+				<tr>	
+					<th>序号</th>
+					<th>姓名</th>
+					<th>年级</th>
+					<th>班级</th>
+					<th>备注</th>
+				</tr>
+			</thead>
+
+			<?php foreach($listwbc as $rows):?>
+				<tr class="wbc_name">
+					<td><?php echo $num_wbc++?></td>
+					<td ><?php echo $rows['name']?></td>
+					<td ><?php echo $rows['gradeid']?>年级</td>
+					<td ><?php echo $rows['classid']?>班</td>
+					<!-- <td><input type="button" class="class_qj" value="请假" onclick="czqj(<?php echo $rows['id']?>)"></td> -->
+					<td><?php echo $rows['model']?></td>
+				</tr>
+				<?php endforeach;?>
+			<?php foreach($listqq as $rows):?>
+				<tr class="<?php echo $rows['model']=='请假'?'qj_name':'qq_name'?>" >
+					<td><?php echo $num_qc++?></td>
+					<td ><?php echo $rows['name']?></td>
+					<td ><?php echo $rows['gradeid']?>年级</td>
+					<td><?php echo $rows['classid']?>班</td>
+					<!-- <td><input type="button" class="class_qj" value="请假" onclick="czqj(<?php echo $rows['id']?>)"></td> -->
+					<td >已<?php echo $rows['model']?></td>
+				</tr>
+				<?php endforeach;?>
+			<?php foreach($list1 as $rows):?>
+				<tr>
+					<td><?php echo $num++?></td>
+					<td class="price"><?php echo $rows['name']?></td>
+					<td ><?php echo $rows['gradeid']?>年级</td>
+					<td ><?php echo $rows['classid']?>班</td>	
+					<!-- <td><input type="button" class="class_qj" value="请假" onclick="czqj(<?php echo $rows['id']?>)"></td> -->
+					<td><a href="###" class="reserve"  onclick="czqq(<?php echo $rows['id']?>)">缺勤</a></td>
+				</tr>
+			<?php endforeach;?>
+
+			<tfoot>
+				<td colspan="5"><a href="###" class="more2">加载更多...</a></td>
+			</tfoot>
+		</table>
+	</div>
+</div>
+
+<footer id="footer">
+	<div class="top">
+		客户端 | 触屏版 | 电脑版
+	</div>
+	<div class="bottom">
+		Copyright © xxkxx 徐霞客实验小学 | 苏ICP备17035092号
+	</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+	<title>徐霞客实验小学校车管理系统</title>
+<script>
+		function czcx(){
+			var cznj = document.getElementById('cznj').value;
+			var czbj = document.getElementById('czbj').value;
+			var czch = document.getElementById('czch').value;
+			var czpc = document.getElementById('czpc').value;
+			window.location.href = "index.php?c=cx&a=cx&cznj=" + cznj+"&czbj="+czbj+"&czch="+czch+"&czpc="+czpc;
+		}
+	   	
+		function display(optionID,optionName){
+			if(optionID==-1)
+				optionID=0;
+			var osel=document.getElementById(optionName); 
+			var opts=osel.getElementsByTagName("option");//得到数组option
+			osel.selectedIndex=optionID;
+        }
+   	window.onload=function(){
+		display(<?php echo  $_SESSION['gradeid'] ?>,'cznj');
+		display(<?php echo  $_SESSION['classid'] ?>,'czbj');
+		switch(<?php echo  $_SESSION['busnum'] ?>){
+			case -1:
+				display(-1,'czch');
+				break;
+			case 1:
+				display(1,'czch');
+				break;
+			case 2:
+				display(2,'czch');
+				break;
+			case 3:
+				display(3,'czch');
+				break;
+			case 5:
+				display(4,'czch');
+				break;
+			case 7:
+				display(5,'czch');
+				break;
+		}		
+		display(<?php echo  $_SESSION['batch'] ?>,'czpc');
+	} 
+	</script>
+
+
+
+	<link rel="stylesheet" href="css/style.css">
+	<style>
+	select{	
+    padding-left:8px; 
+    color:#333;
+    appearance:none;
+    background: url(./img/selectbg.png) no-repeat  100% 100%;}
+	</style>
+</head>
+<body>
+	
+
+<header id="header">
+	<nav class="link">
+		<h2 class="none">网站导航</h2>
+		<ul>
+			<li><a href="index.php">首页</a></li>
+			<li class="active"><a href="index.php?c=cx&a=cx">查询</a></li>
+			<li><a href="index.php?c=qj&a=qj">请假</a></li>
+			<li ><a href="index.php?c=dm&a=dm">点名</a></li>
+		</ul>
+	</nav>
+</header>
+
+<div id="headline">
+	<img src="img/headline.png" alt="">
+	<hgroup>
+		<h2>徐霞客实验小学校车管理系统</h2>
+	</hgroup>
+</div>
+<div id="tour">
+	<hgroup>
+		<h2>徐霞客实验小学乘车信息表</h2>
+		
+	</hgroup>
+</div>
+<div class="list ticket">
+	
+<div class="new">
+
+年级：<select id="cznj" size="1" >
+	<option value="-1">全校</option>
+	<option value="1">一年级</option>
+	<option value="2">二年级</option>
+	<option value="3">三年级</option>
+	<option value="4">四年级</option>
+	<option value="5">五年级</option>
+	<option value="6">六年级</option>
+</select>
+
+班级：<select id="czbj"size="1" >
+	<option value="-1">全年级</option>
+	<option value="1">（1）班</option>
+	<option value="2">（2）班</option>
+	<option value="3">（3）班</option>
+	<option value="4">（4）班</option>
+	<option value="5">（5）班</option>
+	<option value="6">（6）班</option>
+	<option value="7">（7）班</option>
+</select>
+
+批次：<select id="czpc" size="1">
+	<option value="-1">全部</option>
+	<option value="1">第一批</option>
+	<option value="2">第二批</option>
+	<option value="3">第三批</option>
+</select>
+
+车号：<select id="czch" size="1" >
+	<option value="-1">全部</option>
+	<option value="1">1号车</option>
+	<option value="2">2号车</option>
+	<option value="3">3号车</option>
+	<option value="5">5号车</option>
+	<option value="7">7号车</option>
+</select>
+<p>查询：<input type="button" value="查询" id='bt' onclick="czcx()" ></p>
+
+		<table>
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>姓名</th>
+					<th class="min">性别</th>
+					<th>年级</th>
+					<th>班级</th>
+					<th class="min">站点</th>
+					<th >批次</th>
+					<th >车号</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php foreach($list as $rows):?>
+				<tr>
+					<td><?php echo $num++?></td>
+					<td class="price"><?php echo $rows['name']?></td>
+					<td class="min"><?php echo $rows['sex']?></td>
+					<td><?php echo $rows['gradeid']?>年级</td>
+					<td><?php echo $rows['classid']?>班</td>
+					<td class="min"><?php echo $rows['sationid']?></td>
+					<td >第<?php echo $rows['batch']?>批</td>
+					<td ><?php echo $rows['busnum']?>号车</td>			
+				</tr>
+			<?php endforeach;?>
+			</tbody>
+			<tfoot>
+				<td colspan="7"><a href="###" class="more2">加载更多...</a></td>
+			</tfoot>
+		</table>
+	</div>
+</div>
+<footer id="footer">
+	<div class="top">
+		客户端 | 触屏版 | 电脑版
+	</div>
+	<div class="bottom">
+		Copyright © xxkxx 徐霞客实验小学 | 苏ICP备17035092号
+	</div>
+</footer>
+
+</body>
+</html>

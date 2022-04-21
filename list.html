@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>徐霞客实验小学乘车信息表</title>
+    <script>
+        function czcx() {
+        var cznj = document.getElementById('cznj').value;
+        var czbj = document.getElementById('czbj').value;
+        var czch = document.getElementById('czch').value;
+        var czpc = document.getElementById('czpc').value;
+        window.location.href = "qjlist.php?cznj=" + cznj + "&czbj=" + czbj + "&czch=" + czch + "&czpc=" + czpc;
+    }
+
+    function display(optionID, optionName) {
+        if (optionID == -1)
+            optionID = 0;
+        var osel = document.getElementById(optionName);
+        var opts = osel.getElementsByTagName("option"); //得到数组option
+        osel.selectedIndex = optionID;
+    }
+    </script>
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <style type="text/css">
+    .layui-form-select {
+        width: 100px;
+    }
+    .layui-input-inline{
+    	max-width: 100px;
+    }
+    .layui-form-label{
+    	width: 50px;
+    }
+    .header{
+    	width: 100%;
+    	margin: 0 auto;
+    	text-align: center;
+    	line-height: 100px;
+    }
+    </style>
+</head>
+
+<body>
+
+</fieldset>
+	<div class="header">
+		<h1>徐霞客实验小学乘车信息表</h1>
+	</div>
+    <form action="" class="layui-form">
+        <div class="layui-form-item">
+            <label for="" class=layui-form-label>年级：</label>
+            <div class="layui-input-inline">
+                <select name="cznj">
+                    <option value="-1">全校</option>
+                    <option value="1" <?php echo ($cznj==1)?'selected':'' ?>>一年级</option>
+                    <option value="2" <?php echo ($cznj==2)?'selected':'' ?>>二年级</option>
+                    <option value="3" <?php echo ($cznj==3)?'selected':'' ?>>三年级</option>
+                    <option value="4" <?php echo ($cznj==4)?'selected':'' ?>>四年级</option>
+                    <option value="5" <?php echo ($cznj==5)?'selected':'' ?>>五年级</option>
+                    <option value="6" <?php echo ($cznj==6)?'selected':'' ?>>六年级</option>
+                </select>
+            </div>
+            <label for="" class=layui-form-label>班级：</label>
+            <div class="layui-input-inline">
+                <select name="czbj">
+                    <option value="-1">全年级</option>
+                    <option value="1" <?php echo ($czbj==1)?'selected':'' ?>>（1）班</option>
+                    <option value="2" <?php echo ($czbj==2)?'selected':'' ?>>（2）班</option>
+                    <option value="3" <?php echo ($czbj==3)?'selected':'' ?>>（3）班</option>
+                    <option value="4" <?php echo ($czbj==4)?'selected':'' ?>>（4）班</option>
+                    <option value="5" <?php echo ($czbj==5)?'selected':'' ?>>（5）班</option>
+                    <option value="6" <?php echo ($czbj==6)?'selected':'' ?>>（6）班</option>
+                    <option value="7" <?php echo ($czbj==7)?'selected':'' ?>>（7）班</option>
+                </select>
+            </div>
+            <label for="" class=layui-form-label>批次：</label>
+            <div class="layui-input-inline">
+                <select name="czpc">
+                    <option value="-1">全部</option>
+                    <option value="1" <?php echo ($czpc==1)?'selected':'' ?>>第一批</option>
+                    <option value="2" <?php echo ($czpc==2)?'selected':'' ?>>第二批</option>
+                    <option value="3" <?php echo ($czpc==3)?'selected':'' ?>>第三批</option>
+                </select>
+            </div>
+            <label for="" class=layui-form-label>车号：</label>
+            <div class="layui-input-inline">
+                <select name="czch">
+                    <option value="-1">全部</option>
+                    <option value="1" <?php echo ($czch==1)?'selected':'' ?>>1号车</option>
+                    <option value="2" <?php echo ($czch==2)?'selected':'' ?>>2号车</option>
+                    <option value="3" <?php echo ($czch==3)?'selected':'' ?>>3号车</option>
+                    <option value="5" <?php echo ($czch==5)?'selected':'' ?>>5号车</option>
+                    <option value="7" <?php echo ($czch==7)?'selected':'' ?>>7号车</option>
+                </select>
+            </div>
+            <button class="layui-btn layui-btn-normal" value="" id='bt' onclick="czcx()">查询</button>
+        </div>
+    </form>
+    <table class="layui-table" lay-even lay-size="lg">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年级</th>
+                <th>班级</th>
+                <th>站点</th>
+                <th>批次</th>
+                <th>车号</th>
+                <th>备注</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($list as $rows):?>
+            <tr>
+                <td>
+                    <?php echo $num++?>
+                </td>
+                <td>
+                    <?php echo $rows['name']?>
+                </td>
+                <td>
+                    <?php echo $rows['sex']?>
+                </td>
+                <td>
+                    <?php echo $rows['gradeid']?>年级
+                </td>
+                <td>
+                    <?php echo $rows['classid']?>班
+                </td>
+                <td>
+                    <?php echo $rows['sationid']?>
+                </td>
+                <td>
+                	第<?php echo $rows['batch']?>批
+                </td>
+                <td>
+                    <?php echo $rows['busnum']?>号车
+                </td>
+                <td>
+                    <?php echo $rows['model']!='早晚都乘'?$rows['model']:''?>
+                </td>
+            </tr>
+            <?php endforeach;?>
+        </tbody>
+    </table>
+    <script src="./layui/layui.js"></script>
+</body>
+
+</html>

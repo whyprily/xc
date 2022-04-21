@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+	 <meta http-equiv="refresh" content="10">
+	<title>徐霞客实验小学校车管理系统</title>
+	<link rel="stylesheet" href="css/style.css">
+	<style type="text/css">
+		.wbc_name{
+			color:#CD5C5C;
+		}
+		.qj_name{
+			color:#0000FF;
+		}
+		.qq_name{
+			color:#2E8B57;
+		}
+	</style>
+<body>
+	
+<header id="header">
+	<nav class="link">
+		<h2 class="none">网站导航</h2>
+		<ul>
+			<li class="active"><a href="index.php">首页</a></li>
+			<li><a href="index.php?c=cx&a=cx">查询</a></li>
+			<li><a href="index.php?c=qj&a=qj">请假</a></li>
+			<li ><a href="index.php?c=dm&a=dm">点名</a></li>
+		</ul>
+	</nav>
+</header>
+
+<div id="headline">
+	<img src="img/headline.png" alt="">
+	<hgroup>
+		<h2>徐霞客实验小学校车管理系统</h2>
+	</hgroup>
+</div>
+<div id="tour">
+	<hgroup>
+		<h2>今日缺勤和请假人员名单</h2>
+		<h3>今天是：<?php echo date('Y-m-d',time()) ?></h3>
+	</hgroup>
+</div>
+<div class="list ticket">	
+	<div class="new">
+		<h3>今日缺勤人员名单</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>车次</th>
+					<th>批次</th>
+					<th>姓名</th>
+					<th>年级</th>
+					<th>班级</th>
+					<th class="min">登记时间</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php foreach($listqq as $rows):?>
+				<tr class="qq_name">
+					<td><?php echo $numqq++?></td>
+					<td><?php echo $rows['busnum']?>号车</td>
+					<td>第<?php echo $rows['batch']?>批</td>
+					<td class="price"><?php echo $rows['name']?></td>
+					<td ><?php echo $rows['gradeid']?>年级</td>
+					<td><?php echo $rows['classid']?>班</td>
+					<td class="min"><?php echo date('m-d H:i',$rows['createtime']) ?></td>
+				</tr>
+			<?php endforeach;?>
+			</tbody>
+		</table>
+</div>
+		<div class="new">
+		<h3>今日请假人员名单</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>车次</th>
+					<th>批次</th>
+					<th>姓名</th>
+					<th>年级</th>
+					<th>班级</th>
+					<th class="min">登记时间</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php foreach($listqj as $rows):?>
+				<tr class="qj_name">
+					<td><?php echo $numqj++?></td>
+					<td><?php echo $rows['busnum']?>号车</td>
+					<td>第<?php echo $rows['batch']?>批</td>
+					<td class="price"><?php echo $rows['name']?></td>
+					<td ><?php echo $rows['gradeid']?>年级</td>
+					<td><?php echo $rows['classid']?>班</td>
+					<td class="min"><?php echo date('m-d H:i',$rows['createtime']) ?></td>
+				</tr>
+			<?php endforeach;?>
+			</tbody>
+		</table>
+	</div>
+<footer id="footer">
+	<div class="top">
+		客户端 | 触屏版 | 电脑版
+	</div>
+	<div class="bottom">
+		Copyright © xxkxx 徐霞客实验小学 | 苏ICP备17035092号
+	</div>
+</footer>
+</body>
+</html>
