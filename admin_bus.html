@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>车号管理 - 后台管理</title>
+	<link rel="stylesheet" href="css/style.css">
+	<style>
+		* { box-sizing: border-box; }
+		body { margin: 0; padding: 0; background: #f0f2f5; font-family: "Microsoft YaHei", sans-serif; }
+		.admin-layout { display: flex; min-height: 100vh; }
+		.admin-sidebar { width: 220px; background: #001529; color: #fff; flex-shrink: 0; }
+		.admin-sidebar .logo { height: 64px; background: #002140; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; letter-spacing: 1px; }
+		.admin-sidebar .menu { padding: 10px 0; }
+		.admin-sidebar .menu-item { display: block; padding: 14px 24px; color: rgba(255,255,255,0.65); text-decoration: none; transition: all 0.3s; border-left: 3px solid transparent; }
+		.admin-sidebar .menu-item:hover, .admin-sidebar .menu-item.active { color: #fff; background: #1890ff; border-left-color: #fff; }
+		.admin-main { flex: 1; display: flex; flex-direction: column; }
+		.admin-header { height: 64px; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
+		.admin-header h1 { font-size: 18px; color: #333; margin: 0; }
+		.admin-header .user-info { color: #666; font-size: 14px; }
+		.admin-content { padding: 24px; flex: 1; }
+		.admin-card { background: #fff; border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+		.admin-card-header { padding: 16px 24px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; }
+		.admin-card-header h2 { font-size: 16px; color: #333; margin: 0; }
+		.admin-card-body { padding: 24px; }
+		.admin-table { width: 100%; border-collapse: collapse; }
+		.admin-table th, .admin-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #f0f0f0; }
+		.admin-table th { background: #fafafa; color: #333; font-weight: 500; }
+		.admin-table tr:hover { background: #f5f5f5; }
+		.admin-btn { padding: 8px 16px; background: #1890ff; color: #fff; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; font-size: 14px; display: inline-block; transition: all 0.3s; }
+		.admin-btn:hover { background: #40a9ff; }
+		.admin-btn-danger { background: #ff4d4f; }
+		.admin-btn-danger:hover { background: #ff7875; }
+		.admin-btn-success { background: #52c41a; }
+		.admin-btn-success:hover { background: #73d13d; }
+		.admin-toolbar { margin-bottom: 16px; }
+		.status-badge { padding: 4px 12px; border-radius: 12px; font-size: 12px; }
+		.status-badge.active { background: #f6ffed; color: #52c41a; border: 1px solid #b7eb8f; }
+		.status-badge.inactive { background: #fff1f0; color: #ff4d4f; border: 1px solid #ffa39e; }
+		.empty-text { color: #999; padding: 40px; text-align: center; }
+	</style>
+</head>
+<body>
+	<div class="admin-layout">
+		<div class="admin-sidebar">
+			<div class="logo">校车管理系统</div>
+			<div class="menu">
+				<a href="index.php?c=admin&a=index" class="menu-item">管理首页</a>
+				<a href="index.php?c=admin&a=student" class="menu-item">学生管理</a>
+				<a href="index.php?c=admin&a=class" class="menu-item">班级管理</a>
+				<a href="index.php?c=admin&a=station" class="menu-item">站点管理</a>
+				<a href="index.php?c=admin&a=bus" class="menu-item active">车号管理</a>
+				<a href="index.php" class="menu-item" target="_blank">返回前台</a>
+			</div>
+		</div>
+		<div class="admin-main">
+			<div class="admin-header">
+				<h1>车号管理</h1>
+				<span class="user-info">管理员</span>
+			</div>
+			<div class="admin-content">
+				<div class="admin-card">
+					<div class="admin-card-header">
+						<h2>车辆列表</h2>
+					</div>
+					<div class="admin-card-body">
+						<div class="admin-toolbar">
+							<a href="index.php?c=admin&a=addBus" class="admin-btn">添加车辆</a>
+						</div>
+						<?php if(empty($list)): ?>
+						<p class="empty-text">暂无车辆数据</p>
+						<?php else: ?>
+						<table class="admin-table">
+							<thead>
+								<tr>
+									<th style="width: 80px;">序号</th>
+									<th>车号</th>
+									<th>车辆名称</th>
+									<th>座位数</th>
+									<th style="width: 100px;">状态</th>
+									<th style="width: 160px;">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach($list as $rows):?>
+								<tr>
+									<td><?php echo $num++?></td>
+									<td><?php echo $rows['number']?>号车</td>
+									<td><?php echo $rows['name']?></td>
+									<td><?php echo $rows['capacity']?>座</td>
+									<td>
+										<span class="status-badge <?php echo $rows['status']==1?'active':'inactive'?>">
+											<?php echo $rows['status']==1?'正常':'停用'?>
+										</span>
+									</td>
+									<td>
+										<a href="index.php?c=admin&a=editBus&id=<?php echo $rows['id']?>" class="admin-btn">编辑</a>
+										<a href="index.php?c=admin&a=delBus&id=<?php echo $rows['id']?>" class="admin-btn admin-btn-danger" onclick="return confirm('确定删除?')">删除</a>
+									</td>
+								</tr>
+								<?php endforeach;?>
+							</tbody>
+						</table>
+						<?php endif;?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

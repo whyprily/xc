@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>添加站点 - 后台管理</title>
+	<link rel="stylesheet" href="css/style.css">
+	<style>
+		* { box-sizing: border-box; }
+		body { margin: 0; padding: 0; background: #f0f2f5; font-family: "Microsoft YaHei", sans-serif; }
+		.admin-layout { display: flex; min-height: 100vh; }
+		.admin-sidebar { width: 220px; background: #001529; color: #fff; flex-shrink: 0; }
+		.admin-sidebar .logo { height: 64px; background: #002140; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; letter-spacing: 1px; }
+		.admin-sidebar .menu { padding: 10px 0; }
+		.admin-sidebar .menu-item { display: block; padding: 14px 24px; color: rgba(255,255,255,0.65); text-decoration: none; transition: all 0.3s; border-left: 3px solid transparent; }
+		.admin-sidebar .menu-item:hover, .admin-sidebar .menu-item.active { color: #fff; background: #1890ff; border-left-color: #fff; }
+		.admin-main { flex: 1; display: flex; flex-direction: column; }
+		.admin-header { height: 64px; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
+		.admin-header h1 { font-size: 18px; color: #333; margin: 0; }
+		.admin-header .user-info { color: #666; font-size: 14px; }
+		.admin-content { padding: 24px; flex: 1; }
+		.admin-card { background: #fff; border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+		.admin-card-header { padding: 16px 24px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; }
+		.admin-card-header h2 { font-size: 16px; color: #333; margin: 0; }
+		.admin-card-body { padding: 24px; }
+		.admin-btn { padding: 8px 16px; background: #1890ff; color: #fff; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; font-size: 14px; display: inline-block; transition: all 0.3s; }
+		.admin-btn:hover { background: #40a9ff; }
+		.admin-form-group { margin-bottom: 16px; }
+		.admin-form-group label { display: block; margin-bottom: 8px; color: #333; font-weight: 500; }
+		.admin-form-group input { width: 100%; max-width: 300px; padding: 8px 12px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 14px; transition: all 0.3s; }
+		.admin-form-group input:focus { border-color: #1890ff; outline: none; box-shadow: 0 0 0 2px rgba(24,144,255,0.1); }
+	</style>
+</head>
+<body>
+	<div class="admin-layout">
+		<div class="admin-sidebar">
+			<div class="logo">校车管理系统</div>
+			<div class="menu">
+				<a href="index.php?c=admin&a=index" class="menu-item">管理首页</a>
+				<a href="index.php?c=admin&a=student" class="menu-item">学生管理</a>
+				<a href="index.php?c=admin&a=class" class="menu-item">班级管理</a>
+				<a href="index.php?c=admin&a=station" class="menu-item active">站点管理</a>
+				<a href="index.php?c=admin&a=bus" class="menu-item">车号管理</a>
+				<a href="index.php" class="menu-item" target="_blank">返回前台</a>
+			</div>
+		</div>
+		<div class="admin-main">
+			<div class="admin-header">
+				<h1>添加站点</h1>
+				<span class="user-info">管理员</span>
+			</div>
+			<div class="admin-content">
+				<div class="admin-card">
+					<div class="admin-card-header">
+						<h2>新增站点</h2>
+					</div>
+					<div class="admin-card-body">
+						<form method="post">
+							<div class="admin-form-group">
+								<label>站点名称</label>
+								<input type="text" name="name" required placeholder="请输入站点名称">
+							</div>
+							<div class="admin-form-group">
+								<label>排序序号</label>
+								<input type="number" name="order" value="0" placeholder="数字越小越靠前">
+							</div>
+							<div class="admin-form-group">
+								<button type="submit" class="admin-btn">提交</button>
+								<a href="index.php?c=admin&a=station" class="admin-btn" style="background: #fff; color: #666; border: 1px solid #d9d9d9; margin-left: 10px;">返回</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
