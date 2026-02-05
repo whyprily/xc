@@ -1,0 +1,132 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+	<title>徐霞客实验小学校车管理系统</title>
+
+	<link rel="stylesheet" href="css/style.css">
+	<script>
+	   	function czcx(){
+			var cznj = document.getElementById('cznj').value;
+			var czbj = document.getElementById('czbj').value;
+			window.location.href = "index.php?c=qj&a=qj&cznj=" + cznj+"&czbj="+czbj;
+		}
+		function czqj(qjid){
+			window.location.href = "index.php?c=qj&a=qj&qjid=" + qjid;
+		}
+
+
+		function display(optionID,optionName){
+			if(optionID==-1)
+				optionID=0;
+			var osel=document.getElementById(optionName); 
+			var opts=osel.getElementsByTagName("option");//得到数组option
+			// opts[optionID].selected =true;
+			osel.selectedIndex=optionID;
+        }
+   	window.onload=function(){
+		display(<?php echo  $_SESSION['gradeid'] ?>,'cznj');
+		display(<?php echo  $_SESSION['classid'] ?>,'czbj');		
+	} 
+	</script>
+</head>
+<body>
+	
+<header id="header">
+	<nav class="link">
+		<h2 class="none">网站导航</h2>
+		<ul>
+			<li><a href="index.php">首页</a></li>
+			<li><a href="index.php?c=cx&a=cx">查询</a></li>
+			<li class="active"><a href="index.php?c=qj&a=qj">请假</a></li>
+			<li ><a href="index.php?c=dm&a=dm">点名</a></li>
+		</ul>
+	</nav>
+</header>
+
+<div id="headline">
+	<img src="img/headline.png" alt="">
+	<hgroup>
+		<h2>徐霞客实验小学校车管理系统</h2>
+	</hgroup>
+</div>
+<div id="tour">
+	<section>
+	<hgroup>
+		<h2>徐霞客实验小学校车请假系统</h2>
+		<br>
+	</hgroup>
+	<section>
+</div>
+<div class="list ticket">
+
+年级：<select id="cznj" size="1" >
+	<option value="0">请选择</option>
+	<option value="1">一年级</option>
+	<option value="2">二年级</option>
+	<option value="3">三年级</option>
+	<option value="4">四年级</option>
+	<option value="5">五年级</option>
+	<option value="6">六年级</option>
+</select>
+
+班级：<select id="czbj"size="1" >
+	<option value="0">请选择</option>
+	<option value="1">（1）班</option>
+	<option value="2">（2）班</option>
+	<option value="3">（3）班</option>
+	<option value="4">（4）班</option>
+	<option value="5">（5）班</option>
+	<option value="6">（6）班</option>
+	<option value="7">（7）班</option>
+</select>
+<input type="button" value="查询" id='bt' onclick="czcx()">
+	<div class="new">		
+		<table>
+			<thead>
+				<tr>	
+					<th>序号</th>
+					<th>姓名</th>
+					<th class="min">性别</th>
+					<th class="min">年级</th>
+					<th class="min">班级</th>
+					<th>批次</th>
+					<th>车号</th>
+					<th>请假</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php foreach($list1 as $rows):?>
+				<tr>
+					<td><?php echo $num++?></td>
+					<td class="price"><?php echo $rows['name']?></td>
+					<td class="min"><?php echo $rows['sex']?></td>
+					<td class="min"><?php echo $rows['gradeid']?>年级</td>
+					<td class="min"><?php echo $rows['classid']?>班</td>
+					<td>第<?php echo $rows['batch']?>批</td>				
+					<td><?php echo $rows['busnum']?>号车</td>
+					<!-- <td><input type="button" class="class_qj" value="请假" onclick="czqj(<?php echo $rows['id']?>)"></td> -->
+					<td><a href="###" class="reserve"  onclick="czqj(<?php echo $rows['id']?>)">请假</a></td>
+				</tr>
+				<?php endforeach;?>			
+			</tbody>
+			<tfoot>
+				<td colspan="7"><a href="###" class="more2">加载更多...</a></td>
+			</tfoot>
+		</table>
+	</div>
+</div>
+
+<footer id="footer">
+	<div class="top">
+		客户端 | 触屏版 | 电脑版
+	</div>
+	<div class="bottom">
+		Copyright © xxkxx 徐霞客实验小学 | 苏ICP备17035092号
+	</div>
+</footer>
+</body>
+</html>
